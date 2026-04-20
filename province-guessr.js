@@ -1,6 +1,7 @@
 const PROVINCE_STORAGE_KEY = "mongolia-province-guessr-v1";
 const PROVINCE_GEOJSON_URL = "mongolia-adm1.geojson";
 const EXCLUDED_REGIONS = new Set(["Ulaanbaatar"]);
+const PROVINCE_VIEWBOX = { width: 900, height: 640 };
 
 const provinceElements = {
   statusBadge: document.getElementById("provinceStatusBadge"),
@@ -24,6 +25,8 @@ const provinceElements = {
   winnerMessage: document.getElementById("provinceWinnerMessage"),
   winnerRestartButton: document.getElementById("provinceWinnerRestartButton")
 };
+
+let provinceRegionsLayer = null;
 
 function hasProvinceUI() {
   return Boolean(provinceElements.map && provinceElements.prompt);
@@ -64,19 +67,25 @@ function loadProvinceState() {
     const validIds = new Set(provinceData.map((province) => province.id));
     const queueValid = Array.isArray(parsed.queue) && parsed.queue.every((id) => validIds.has(id));
     const currentValid = typeof parsed.currentId === "string" && validIds.has(parsed.currentId);
+    const answered = Number.isInteger(parsed.answered) ? parsed.answered : 0;
+    const completed = Boolean(parsed.completed);
 
     if (!queueValid || !currentValid) {
+      return createProvinceState(parsed.bestStreak || 0);
+    }
+
+    if (!completed && answered < provinceData.length && parsed.queue.length === 0) {
       return createProvinceState(parsed.bestStreak || 0);
     }
 
     return {
       streak: parsed.streak || 0,
       bestStreak: parsed.bestStreak || 0,
-      answered: parsed.answered || 0,
+      answered,
       queue: parsed.queue,
       currentId: parsed.currentId,
       mode: parsed.mode || "question",
-      completed: Boolean(parsed.completed),
+      completed,
       resetOnContinue: Boolean(parsed.resetOnContinue),
       lastResult: parsed.lastResult || null
     };
@@ -151,6 +160,11 @@ function provinceById(id) {
 
 function renderProvincePrompt() {
   const current = provinceById(provinceState.currentId);
+  if (!current) {
+    restartProvinceRun();
+    return;
+  }
+
   provinceElements.prompt.textContent = current ? `Find ${current.name}` : "Loading aimag...";
   provinceElements.lead.textContent = provinceState.mode === "feedback"
     ? "Review the result below, then continue."
@@ -176,33 +190,33 @@ function renderProvincePrompt() {
 }
 
 function updateProvinceMapClasses() {
-  if (!provinceElements.map) {
+  if (!provinceElements.map || !provinceRegionsLayer) {
     return;
   }
 
-  let topNode = null;
+  const highlightNodes = [];
 
-  provinceElements.map.querySelectorAll(".province-region").forEach((node) => {
+  provinceRegionsLayer.querySelectorAll(".province-region").forEach((node) => {
     const provinceId = node.dataset.provinceId;
     node.classList.remove("is-correct", "is-wrong", "is-neutral");
     node.setAttribute("aria-disabled", provinceState.mode === "question" ? "false" : "true");
+    node.setAttribute("tabindex", provinceState.mode === "question" ? "0" : "-1");
 
     if (provinceState.mode === "feedback" && provinceState.lastResult) {
       if (provinceId === provinceState.lastResult.correctId) {
         node.classList.add("is-correct");
-        topNode = node;
+        highlightNodes.push(node);
       } else if (provinceId === provinceState.lastResult.selectedId && !provinceState.lastResult.correct) {
         node.classList.add("is-wrong");
-        topNode = node;
+        highlightNodes.unshift(node);
       } else {
         node.classList.add("is-neutral");
       }
     }
   });
 
-  if (topNode) {
-    provinceElements.map.appendChild(topNode);
-  }
+  provinceElements.map.classList.toggle("is-locked", provinceState.mode !== "question");
+  highlightNodes.forEach((node) => provinceRegionsLayer.appendChild(node));
 }
 
 function handleProvinceGuess(provinceId) {
@@ -212,6 +226,11 @@ function handleProvinceGuess(provinceId) {
 
   const selected = provinceById(provinceId);
   const correct = provinceById(provinceState.currentId);
+  if (!selected || !correct) {
+    restartProvinceRun();
+    return;
+  }
+
   const isCorrect = provinceId === provinceState.currentId;
 
   provinceState.mode = "feedback";
@@ -242,14 +261,25 @@ function handleProvinceGuess(provinceId) {
 
 function attachProvinceInteractions(regionNode, provinceId) {
   function bringToFront() {
-    if (provinceElements.map && regionNode.parentNode === provinceElements.map) {
-      provinceElements.map.appendChild(regionNode);
+    if (
+      provinceState.mode === "question" &&
+      provinceRegionsLayer &&
+      regionNode.parentNode === provinceRegionsLayer
+    ) {
+      provinceRegionsLayer.appendChild(regionNode);
     }
+  }
+
+  function submitGuess(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    handleProvinceGuess(provinceId);
   }
 
   regionNode.addEventListener("mouseenter", bringToFront);
   regionNode.addEventListener("focus", bringToFront);
-  regionNode.addEventListener("click", () => handleProvinceGuess(provinceId));
+  regionNode.addEventListener("pointerup", submitGuess);
+  regionNode.addEventListener("click", submitGuess);
   regionNode.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -342,6 +372,12 @@ function geometryToPath(coordinates) {
 
 function renderProvinceMap() {
   provinceElements.map.innerHTML = "";
+  provinceRegionsLayer = null;
+  provinceElements.map.setAttribute(
+    "viewBox",
+    `0 0 ${PROVINCE_VIEWBOX.width} ${PROVINCE_VIEWBOX.height}`
+  );
+  provinceElements.map.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
   const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
   defs.innerHTML = `
@@ -350,6 +386,10 @@ function renderProvinceMap() {
     </filter>
   `;
   provinceElements.map.appendChild(defs);
+
+  provinceRegionsLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  provinceRegionsLayer.classList.add("province-regions-layer");
+  provinceElements.map.appendChild(provinceRegionsLayer);
 
   provinceData.forEach((province) => {
     const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -362,10 +402,20 @@ function renderProvinceMap() {
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("d", province.path);
     path.classList.add("province-path");
+    path.addEventListener("pointerup", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      handleProvinceGuess(province.id);
+    });
+    path.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      handleProvinceGuess(province.id);
+    });
 
     group.appendChild(path);
     attachProvinceInteractions(group, province.id);
-    provinceElements.map.appendChild(group);
+    provinceRegionsLayer.appendChild(group);
   });
 
   provinceElements.mapLoading.hidden = true;
@@ -394,7 +444,7 @@ async function loadProvinceData() {
 
   const geojson = await response.json();
   const features = geojson.features.filter((feature) => !EXCLUDED_REGIONS.has(feature.properties.shapeName));
-  return projectProvinceData(features, 900, 640);
+  return projectProvinceData(features, PROVINCE_VIEWBOX.width, PROVINCE_VIEWBOX.height);
 }
 
 let provinceData = [];
