@@ -2,11 +2,11 @@ project:
   type: website
 
 website:
-  title: "web"
+  title: "Mongolia 100"
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: Game
       - about.qmd
 
 format:
@@ -15,7 +15,6 @@ format:
       - cosmo
       - brand
     css: styles.css
-    toc: true
-
+    toc: false
 
 
