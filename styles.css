@@ -841,13 +841,18 @@ body {
 
 .map-frame {
   position: relative;
-  min-height: 560px;
+  aspect-ratio: 900 / 640;
+  min-height: clamp(340px, 62vw, 560px);
   border-radius: calc(var(--radius-lg) - 4px);
   border: 1px solid rgba(18, 32, 45, 0.08);
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 32%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(238, 231, 216, 0.76));
+}
+
+.province-panel .map-frame {
+  min-height: clamp(300px, 52vw, 500px);
 }
 
 .map-frame::after {
@@ -874,7 +879,7 @@ body {
 .province-map {
   width: 100%;
   height: 100%;
-  min-height: 560px;
+  min-height: 0;
   display: block;
 }
 
@@ -885,6 +890,10 @@ body {
   transition: transform 180ms ease, filter 180ms ease, opacity 180ms ease;
 }
 
+.province-map.is-locked .province-region {
+  cursor: default;
+}
+
 .province-region:hover,
 .province-region:focus {
   transform: translateY(-8px) scale(1.01);
@@ -892,11 +901,18 @@ body {
   outline: none;
 }
 
+.province-map.is-locked .province-region:hover,
+.province-map.is-locked .province-region:focus {
+  transform: none;
+  filter: none;
+}
+
 .province-path {
   fill: #d8c6a3;
   stroke: rgba(18, 32, 45, 0.36);
   stroke-width: 2.2;
   vector-effect: non-scaling-stroke;
+  pointer-events: visiblePainted;
   transition: fill 180ms ease, stroke 180ms ease;
 }
 
