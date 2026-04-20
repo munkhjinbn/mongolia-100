@@ -5,6 +5,8 @@ website:
   title: "Mongolia 100"
   navbar:
     left:
+      - href: all-games.qmd
+        text: All Games
       - href: index.qmd
         text: Game
       - href: about.qmd
@@ -17,4 +19,3 @@ format:
       - brand
     css: styles.css
     toc: false
-

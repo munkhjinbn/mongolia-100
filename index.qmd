@@ -22,6 +22,11 @@ toc: false
     </div>
     <div class="hero-side">
       <div class="date-badge" id="todayBadge">Loading today's trail...</div>
+      <a class="fact-link-card" href="all-games.html">
+        <p class="mini-label">All games</p>
+        <h2>Browse the game hub and future releases.</h2>
+        <p class="motif-note">Use the launcher page to jump between live games and upcoming slots.</p>
+      </a>
       <a class="fact-link-card" href="about.html">
         <p class="mini-label">Fact archive</p>
         <h2>Browse all 100 facts on a separate page.</h2>

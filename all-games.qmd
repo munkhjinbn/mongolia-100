@@ -1,0 +1,57 @@
+---
+title: "All Games"
+page-layout: full
+toc: false
+---
+
+```{=html}
+<div class="mongolia-shell hub-shell">
+  <section class="hub-hero">
+    <p class="archive-eyebrow">Game Library</p>
+    <h1>All Games</h1>
+    <p class="hub-lead">
+      A growing set of simple daily games and fact-driven puzzles. For now, the Mongolia streak
+      game is live and the rest of the slots are ready for future additions.
+    </p>
+  </section>
+
+  <section class="hub-grid">
+    <a class="game-tile game-tile-live" href="index.html">
+      <p class="game-tile-label">Live now</p>
+      <h2>Mongolia 100</h2>
+      <p class="game-tile-copy">
+        Build a streak by answering Mongolia fact cards without repeats inside a cycle.
+      </p>
+      <div class="game-tile-meta">
+        <span>100 facts</span>
+        <span>Streak mode</span>
+        <span>Daily play</span>
+      </div>
+    </a>
+
+    <article class="game-tile game-tile-soon">
+      <p class="game-tile-label">Coming soon</p>
+      <h2>Next Geography Game</h2>
+      <p class="game-tile-copy">
+        Placeholder slot for another country or region-based daily challenge.
+      </p>
+    </article>
+
+    <article class="game-tile game-tile-soon">
+      <p class="game-tile-label">Coming soon</p>
+      <h2>History Sprint</h2>
+      <p class="game-tile-copy">
+        Placeholder slot for a future timeline or historical fact guessing game.
+      </p>
+    </article>
+
+    <article class="game-tile game-tile-soon">
+      <p class="game-tile-label">Coming soon</p>
+      <h2>Culture Stack</h2>
+      <p class="game-tile-copy">
+        Placeholder slot for a future culture and traditions quiz format.
+      </p>
+    </article>
+  </section>
+</div>
+```
