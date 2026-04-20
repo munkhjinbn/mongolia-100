@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://munkhjinbn.github.io/cy350-website/about.html</loc>
-    <lastmod>2026-04-20T14:33:11.807Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munkhjinbn.github.io/cy350-website/all-games.html</loc>
-    <lastmod>2026-04-20T16:24:50.832Z</lastmod>
+    <loc>https://munkhjinbn.github.io/cy350-website/province-guessr.html</loc>
+    <lastmod>2026-04-20T16:45:46.088Z</lastmod>
   </url>
   <url>
     <loc>https://munkhjinbn.github.io/cy350-website/index.html</loc>
-    <lastmod>2026-04-20T16:24:59.438Z</lastmod>
+    <lastmod>2026-04-20T17:13:23.729Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munkhjinbn.github.io/cy350-website/ger-puzzle.html</loc>
+    <lastmod>2026-04-20T17:22:15.516Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munkhjinbn.github.io/cy350-website/all-games.html</loc>
+    <lastmod>2026-04-20T17:13:38.005Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munkhjinbn.github.io/cy350-website/landmark-guessr.html</loc>
+    <lastmod>2026-04-20T16:59:33.129Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munkhjinbn.github.io/cy350-website/mongolia-100.html</loc>
+    <lastmod>2026-04-20T16:39:44.637Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munkhjinbn.github.io/cy350-website/about.html</loc>
+    <lastmod>2026-04-20T16:39:51.397Z</lastmod>
   </url>
 </urlset>
