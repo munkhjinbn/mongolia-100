@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fact Archive – Mongolia Games</title>
+<title>Empire Timeline – Mongolia Games</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -121,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Naadam Arena</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./empire-timeline.html"> 
+    <a class="nav-link active" href="./empire-timeline.html" aria-current="page"> 
 <span class="menu-text">Empire Timeline</span></a>
   </li>  
   <li class="nav-item">
@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Ger Life</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Facts</span></a>
   </li>  
 </ul>
@@ -145,11 +145,11 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content page-columns page-full column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fact Archive</h1>
+<h1 class="title">Empire Timeline</h1>
 </div>
 
 
@@ -166,30 +166,26 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="mongolia-shell archive-shell">
-  <section class="archive-panel">
-    <div class="archive-head">
-      <div>
-        <p class="archive-eyebrow">Mongolia 100</p>
-        <h2 class="anchored">All 100 Mongolia facts</h2>
-        <p class="archive-intro">
-          Search the full archive by keyword, answer, or category. The numbering matches the fixed
-          100-card deck used in the game.
-        </p>
-      </div>
-      <div class="archive-actions">
-        <label class="search-wrap" for="factSearch">
-          <span>Search facts</span>
-          <input id="factSearch" type="search" placeholder="Search by keyword, answer, or category">
-        </label>
-        <a class="ghost-button archive-back" href="mongolia-100.html">Back to game</a>
-      </div>
-    </div>
-    <div class="facts-grid" id="factsGrid"></div>
-  </section>
+<div class="mongolia-shell province-shell page-columns page-full">
+  <section class="hero-panel province-hero"><div class="hero-copy"><p class="eyebrow">Timeline Slider</p><h1>Empire Timeline</h1><p class="hero-text">Move the slider to guess the year of key moments tied to Mongolia and the Mongol Empire.</p><div class="hero-chips"><span class="chip">10 history cards</span><span class="chip">Year slider</span><span class="chip">Streak mode</span></div></div><div class="hero-side"><div class="date-badge" id="miniStatusBadge">Loading history run...</div><a class="fact-link-card" href="index.html"><p class="mini-label">All games</p><h2 class="anchored">Back to the launcher.</h2></a></div></section>
+  <section class="stats-strip"><article class="stat-card"><p class="stat-label">Current streak</p><p class="stat-value" id="miniStreakValue">0</p></article><article class="stat-card"><p class="stat-label">Best streak</p><p class="stat-value" id="miniBestValue">0</p></article><article class="stat-card"><p class="stat-label">Run progress</p><p class="stat-value" id="miniProgressValue">0 / 10</p></article><article class="stat-card"><p class="stat-label">Remaining</p><p class="stat-value" id="miniRemainingValue">10</p></article></section>
+  <section class="play-grid page-columns page-full"><article class="game-panel"><div class="question-meta"><span class="meta-pill">History challenge</span><span class="meta-pill subtle" id="miniIndexPill"></span></div><h2 id="miniPrompt" class="anchored"></h2><p class="question-lead" id="miniLead"></p><div class="options-grid timeline-options" id="miniOptionsGrid"></div><div class="feedback-panel" id="miniFeedbackPanel" hidden=""><p class="feedback-result" id="miniFeedbackResult"></p><p class="feedback-fact" id="miniFeedbackText"></p><button class="primary-button" id="miniContinueButton" type="button">Next card</button></div><div class="panel-actions"><button class="ghost-button" id="miniRestartButton" type="button">Restart run</button></div></article><aside class="info-panel"><h3 class="anchored">How it works</h3><ul class="rules-list"><li>Drag the slider to the year you think fits.</li><li>Submit your guess to reveal the exact year.</li><li>Guesses within 10 years keep your streak.</li></ul><div class="mini-panel"><p class="mini-label">Run summary</p><p id="miniRunSummary"></p></div></aside></section>
 </div>
-
-<script src="game.js"></script>
+<script>
+window.MINI_QUIZ_CONFIG = { id: "empire-timeline", title: "Empire Timeline", mode: "timeline", minYear: 1100, maxYear: 2000, tolerance: 10, lead: "Move the slider to the year you think matches the prompt.", questions: [
+{ question: "Temujin was proclaimed Chinggis Khan, founding the Mongol Empire.", year: 1206, detail: "1206 marks the formal founding moment of the empire." },
+{ question: "Karakorum was established as the Mongol Empire's capital under Ogedei Khan.", year: 1235, detail: "Karakorum became the political center in the Orkhon Valley." },
+{ question: "Mongol forces captured Baghdad, ending the Abbasid Caliphate there.", year: 1258, detail: "The siege was one of the empire's most consequential western campaigns." },
+{ question: "Kublai Khan founded the Yuan dynasty in China.", year: 1271, detail: "Kublai declared the Yuan dynasty before completing the conquest of Song China." },
+{ question: "Marco Polo reached Kublai Khan's court according to the traditional account.", year: 1275, detail: "His travels helped shape later European images of the Mongol world." },
+{ question: "The Yuan dynasty fell and Mongol rule retreated from China.", year: 1368, detail: "The Ming dynasty captured Dadu, now Beijing, in 1368." },
+{ question: "Erdene Zuu Monastery was founded near the ruins of Karakorum.", year: 1586, detail: "It is among Mongolia's oldest surviving Buddhist monasteries." },
+{ question: "Mongolia declared independence from Qing rule under the Bogd Khan.", year: 1911, detail: "The Bogd Khan became ruler of independent Mongolia in the early 20th century." },
+{ question: "The Mongolian People's Republic was proclaimed.", year: 1924, detail: "The republic was declared after the death of the Bogd Khan." },
+{ question: "Mongolia's democratic revolution began.", year: 1990, detail: "Mass protests and reforms opened the way to multi-party elections." }
+]};
+</script>
+<script src="mini-quiz.js"></script>
 
 
 

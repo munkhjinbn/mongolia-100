@@ -479,6 +479,47 @@ body {
   background: rgba(252, 226, 223, 0.98);
 }
 
+.timeline-options {
+  display: block;
+}
+
+.timeline-guess {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.timeline-year-readout {
+  margin: 0;
+  font-size: 3.6rem;
+  line-height: 1;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0;
+}
+
+.timeline-slider {
+  width: 100%;
+  accent-color: #0d5ea6;
+}
+
+.timeline-slider:disabled {
+  opacity: 0.72;
+}
+
+.timeline-marks {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.timeline-submit {
+  text-align: center;
+  min-height: 58px;
+}
+
 .feedback-panel {
   margin-top: 18px;
   padding: 18px 20px;
@@ -571,7 +612,7 @@ body {
 }
 
 .ger-piece-visual.is-animating .ger-piece-art {
-  transform: translateY(-4px) scale(1.015);
+  transform: translateY(-8px) scale(1.015);
 }
 
 .ger-piece-visual.is-animating .ger-door,

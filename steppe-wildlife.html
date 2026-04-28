@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fact Archive – Mongolia Games</title>
+<title>Steppe Wildlife – Mongolia Games</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Ger Builder</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./steppe-wildlife.html"> 
+    <a class="nav-link active" href="./steppe-wildlife.html" aria-current="page"> 
 <span class="menu-text">Steppe Wildlife</span></a>
   </li>  
   <li class="nav-item">
@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Ger Life</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">Facts</span></a>
   </li>  
 </ul>
@@ -145,11 +145,11 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content page-columns page-full column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fact Archive</h1>
+<h1 class="title">Steppe Wildlife</h1>
 </div>
 
 
@@ -166,30 +166,62 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="mongolia-shell archive-shell">
-  <section class="archive-panel">
-    <div class="archive-head">
-      <div>
-        <p class="archive-eyebrow">Mongolia 100</p>
-        <h2 class="anchored">All 100 Mongolia facts</h2>
-        <p class="archive-intro">
-          Search the full archive by keyword, answer, or category. The numbering matches the fixed
-          100-card deck used in the game.
-        </p>
-      </div>
-      <div class="archive-actions">
-        <label class="search-wrap" for="factSearch">
-          <span>Search facts</span>
-          <input id="factSearch" type="search" placeholder="Search by keyword, answer, or category">
-        </label>
-        <a class="ghost-button archive-back" href="mongolia-100.html">Back to game</a>
-      </div>
+<div class="mongolia-shell province-shell page-columns page-full">
+  <section class="hero-panel province-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Quick Mongolia Quiz</p>
+      <h1>Steppe Wildlife</h1>
+      <p class="hero-text">Test your knowledge of iconic animals found in Mongolia's steppes, mountains, and deserts.</p>
+      <div class="hero-chips"><span class="chip">10 wildlife cards</span><span class="chip">No repeats in a run</span><span class="chip">Streak scoring</span></div>
     </div>
-    <div class="facts-grid" id="factsGrid"></div>
+    <div class="hero-side">
+      <div class="date-badge" id="miniStatusBadge">Loading wildlife run...</div>
+      <a class="fact-link-card" href="index.html"><p class="mini-label">All games</p><h2 class="anchored">Back to the launcher.</h2></a>
+    </div>
+  </section>
+  <section class="stats-strip">
+    <article class="stat-card"><p class="stat-label">Current streak</p><p class="stat-value" id="miniStreakValue">0</p></article>
+    <article class="stat-card"><p class="stat-label">Best streak</p><p class="stat-value" id="miniBestValue">0</p></article>
+    <article class="stat-card"><p class="stat-label">Run progress</p><p class="stat-value" id="miniProgressValue">0 / 10</p></article>
+    <article class="stat-card"><p class="stat-label">Remaining</p><p class="stat-value" id="miniRemainingValue">10</p></article>
+  </section>
+  <section class="play-grid page-columns page-full">
+    <article class="game-panel">
+      <div class="question-meta"><span class="meta-pill">Wildlife challenge</span><span class="meta-pill subtle" id="miniIndexPill">Card 1 of 10</span></div>
+      <h2 id="miniPrompt" class="anchored">Loading question...</h2>
+      <p class="question-lead" id="miniLead"></p>
+      <div class="options-grid" id="miniOptionsGrid"></div>
+      <div class="feedback-panel" id="miniFeedbackPanel" hidden="">
+        <p class="feedback-result" id="miniFeedbackResult"></p>
+        <p class="feedback-fact" id="miniFeedbackText"></p>
+        <button class="primary-button" id="miniContinueButton" type="button">Next card</button>
+      </div>
+      <div class="panel-actions"><button class="ghost-button" id="miniRestartButton" type="button">Restart run</button></div>
+    </article>
+    <aside class="info-panel"><h3 class="anchored">How it works</h3><ul class="rules-list"><li>Each card appears once per run.</li><li>Wrong answers reset streak only.</li><li>Complete all cards to finish the deck.</li></ul><div class="mini-panel"><p class="mini-label">Run summary</p><p id="miniRunSummary"></p></div></aside>
   </section>
 </div>
 
-<script src="game.js"></script>
+<script>
+window.MINI_QUIZ_CONFIG = {
+  id: "steppe-wildlife",
+  title: "Steppe Wildlife",
+  lead: "Choose the best answer about Mongolia's wildlife and habitats.",
+  questions: [
+    { question: "Which wild horse was reintroduced in Mongolia?", answer: "Takhi", options: ["Takhi", "Zebra", "Mustang", "Kiang"], detail: "Takhi is the Mongolian name for Przewalski's horse." },
+    { question: "Which big cat lives in Mongolia's high mountains?", answer: "Snow leopard", options: ["Snow leopard", "Tiger", "Cheetah", "Jaguar"], detail: "Snow leopards inhabit the Altai and other mountain ranges." },
+    { question: "Which camel species is native to the Gobi region?", answer: "Bactrian camel", options: ["Bactrian camel", "Dromedary camel", "Llama", "Alpaca"], detail: "Bactrian camels have two humps and suit cold deserts." },
+    { question: "What is Mongolia's largest wild sheep?", answer: "Argali", options: ["Argali", "Mouflon", "Ibex", "Markhor"], detail: "Argali are famous for massive curved horns." },
+    { question: "Which bird is trained by western Mongolian hunters?", answer: "Golden eagle", options: ["Golden eagle", "Falcon", "Owl", "Condor"], detail: "Kazakh eagle hunters traditionally train golden eagles." },
+    { question: "Khustain Nuruu National Park is known for protecting what?", answer: "Takhi populations", options: ["Takhi populations", "Pandas", "Polar bears", "Sea lions"], detail: "Khustain Nuruu is a flagship takhi conservation site." },
+    { question: "Which habitat covers much of Mongolia?", answer: "Steppe grassland", options: ["Steppe grassland", "Rainforest", "Mangrove", "Coral reef"], detail: "Vast steppe dominates Mongolia's landscape." },
+    { question: "Which desert stretches across southern Mongolia?", answer: "Gobi Desert", options: ["Gobi Desert", "Sahara", "Kalahari", "Atacama"], detail: "The Gobi spans southern Mongolia and northern China." },
+    { question: "What severe winter disaster can cause large livestock losses?", answer: "Dzud", options: ["Dzud", "Monsoon", "Typhoon", "El Niño"], detail: "Dzud combines cold, snow, and forage shortages." },
+    { question: "Which animal fiber drives Mongolia's cashmere industry?", answer: "Goat undercoat", options: ["Goat undercoat", "Yak wool", "Silkworm thread", "Alpaca wool"], detail: "Cashmere comes from fine underhair of goats." }
+  ]
+};
+</script>
+<script src="mini-quiz.js"></script>
 
 
 
